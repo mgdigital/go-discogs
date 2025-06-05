@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var letterRegex = regexp.MustCompile(`^[a-zA-Z]$`)
+var letterRegex = regexp.MustCompile(`^([a-zA-Z])$`)
 var letterNumberRegex = regexp.MustCompile(`^([a-zA-Z])(\d+)$`)
 var trackNumberRegex = regexp.MustCompile(`^(\d+)$`)
 var discTrackNumberRegex = regexp.MustCompile(`^\D*(\d+)[-.](\d+)$`)
@@ -21,8 +21,8 @@ func ParseDiscTrackNumber(position string) (int, int, error) {
 	}
 	matches = letterRegex.FindStringSubmatch(position)
 	if len(matches) > 0 {
-		disc := 1
-		track := 1 + int(strings.ToUpper(matches[1])[0]-'A')
+		disc := 1 + int(strings.ToUpper(matches[1])[0]-'A')
+		track := 1
 		return disc, track, nil
 	}
 	matches = letterNumberRegex.FindStringSubmatch(position)
